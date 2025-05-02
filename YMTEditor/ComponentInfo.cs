@@ -2,46 +2,46 @@
 {
     public class ComponentInfo
     {
-        public string infoHash_2FD08CEF { get; set; } //unknown usage
-        public string infoHash_FC507D28 { get; set; } //unknown usage
-        public string[] infoHash_07AE529D { get; set; } //probably expressionMods(?) - used for heels for example
+        public string infopedXml_audioID { get; set; } //unknown usage audioid
+        public string infopedXml_audioID2 { get; set; } //unknown usage audioid2
+        public string[] infopedXml_expressionMods { get; set; } //probably expressionMods(?) - used for heels for example
         public int infoFlags { get; set; } //unknown usage
         public string infoInclusions { get; set; } //unknown usage
         public string infoExclusions { get; set; } //unknown usage
-        public string infoHash_6032815C { get; set; } //unknown usage - always "PV_COMP_HEAD" (?)
-        public int infoHash_7E103C8B { get; set; } //unknown usage
+        public string infopedXml_vfxComps { get; set; } //unknown usage - always "PV_COMP_HEAD" (?)
+        public int infopedXml_flags { get; set; } //unknown usage flags
 
-        public int infoHash_D12F579D { get; set; } //component id (jbib = 11, feet = 6, etc)
-        public int infoHash_FA1F27BF { get; set; } //drawable index (000, 001, 002, etc)
+        public int infopedXml_compIdx { get; set; } //component id (jbib = 11, feet = 6, etc)
+        public int infopedXml_drawblIdx { get; set; } //drawable index (000, 001, 002, etc)
 
-        public ComponentInfo(string hash_2FD08CEF, string hash_FC507D28, string[] hash_07AE529D, int flags, string inclusions, string exclusions, string hash_6032815C, int hash_7E103C8B, int hash_D12F579D, int hash_FA1F27BF)
+        public ComponentInfo(string pedXml_audioID, string pedXml_audioID2, string[] pedXml_expressionMods, int flags, string inclusions, string exclusions, string pedXml_vfxComps, int pedXml_flags, int pedXml_compIdx, int pedXml_drawblIdx)
         {
-            infoHash_2FD08CEF = hash_2FD08CEF;
-            infoHash_FC507D28 = hash_FC507D28;
-            infoHash_07AE529D = hash_07AE529D;
+            infopedXml_audioID = pedXml_audioID;
+            infopedXml_audioID2 = pedXml_audioID2;
+            infopedXml_expressionMods = pedXml_expressionMods;
             infoFlags = flags;
             infoInclusions = inclusions;
             infoExclusions = exclusions;
-            infoHash_6032815C = hash_6032815C;
-            infoHash_7E103C8B = hash_7E103C8B;
+            infopedXml_vfxComps = pedXml_vfxComps;
+            infopedXml_flags = pedXml_flags;
 
-            infoHash_D12F579D = hash_D12F579D;
-            infoHash_FA1F27BF = hash_FA1F27BF;
+            infopedXml_compIdx = pedXml_compIdx;
+            infopedXml_drawblIdx = pedXml_drawblIdx;
         }
 
         public ComponentInfo(int componentId, int drawableIndex)
         {
-            infoHash_2FD08CEF = "none";
-            infoHash_FC507D28 = "none";
-            infoHash_07AE529D = new string[] { "0", "0", "0", "0", "0" };
+            infopedXml_audioID = "none";
+            infopedXml_audioID2 = "none";
+            infopedXml_expressionMods = new string[] { "0", "0", "0", "0", "0" };
             infoFlags = 0;
             infoInclusions = "0";
             infoExclusions = "0";
-            infoHash_6032815C = "PV_COMP_HEAD";
-            infoHash_7E103C8B = 0;
+            infopedXml_vfxComps = "PV_COMP_HEAD";
+            infopedXml_flags = 0;
 
-            infoHash_D12F579D = componentId;
-            infoHash_FA1F27BF = drawableIndex;
+            infopedXml_compIdx = componentId;
+            infopedXml_drawblIdx = drawableIndex;
         }
     }
 }

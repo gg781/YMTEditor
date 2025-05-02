@@ -157,15 +157,15 @@ namespace YMTEditor
             //load compInfo's properties
             foreach (var compInfo_node in xmlFile.Descendants("compInfos").Elements("Item"))
             {
-                string comphash_2FD08CEF = compInfo_node.Element("hash_2FD08CEF").Value.ToString(); //unknown usage
-                string comphash_FC507D28 = compInfo_node.Element("hash_FC507D28").Value.ToString(); //unknown usage
+                string comppedXml_audioID = compInfo_node.Element("pedXml_audioID").Value.ToString(); //unknown usage
+                string comppedXml_audioID2 = compInfo_node.Element("pedXml_audioID2").Value.ToString(); //unknown usage
 
-                string[] comphash_07AE529D = compInfo_node.Element("hash_07AE529D").Value.Split(' '); //probably expressionMods(?) - used for heels for example
+                string[] comppedXml_expressionMods = compInfo_node.Element("pedXml_expressionMods").Value.Split(' '); //probably expressionMods(?) - used for heels for example
                 
                 //if not 5, then it didn't split properly (probably "0000000000" value from metatool?)
-                if (comphash_07AE529D.Length != 5)
+                if (comppedXml_expressionMods.Length != 5)
                 {
-                    string s = compInfo_node.Element("hash_07AE529D").Value.ToString();
+                    string s = compInfo_node.Element("pedXml_expressionMods").Value.ToString();
                     List<String> temp = new List<String>();
                     int stringlenght = s.Length;
                     int skipEvery = 2; //we have to split every 2 characters
@@ -175,30 +175,30 @@ namespace YMTEditor
                         temp.Add(a);
                     }
 
-                    comphash_07AE529D = temp.ToArray();
+                    comppedXml_expressionMods = temp.ToArray();
                 }
 
                 int compflags = Convert.ToInt32(compInfo_node.Element("flags").FirstAttribute.Value); //unknown usage
                 string compinclusions = compInfo_node.Element("inclusions").Value.ToString(); //unknown usage
                 string compexclusions = compInfo_node.Element("exclusions").Value.ToString(); //unknown usage
-                string comphash_6032815C = compInfo_node.Element("hash_6032815C").Value.ToString(); //unknown usage - always "PV_COMP_HEAD" (?)
-                int comphash_7E103C8B = Convert.ToInt32(compInfo_node.Element("hash_7E103C8B").FirstAttribute.Value); //unknown usage
+                string comppedXml_vfxComps = compInfo_node.Element("pedXml_vfxComps").Value.ToString(); //unknown usage - always "PV_COMP_HEAD" (?)
+                int comppedXml_flags = Convert.ToInt32(compInfo_node.Element("pedXml_flags").FirstAttribute.Value); //unknown usage
 
-                int comphash_D12F579D = Convert.ToInt32(compInfo_node.Element("hash_D12F579D").FirstAttribute.Value); //component id (jbib = 11, feet = 6, etc)
-                int comphash_FA1F27BF = Convert.ToInt32(compInfo_node.Element("hash_FA1F27BF").FirstAttribute.Value); //drawable index (000, 001, 002, etc)
+                int comppedXml_compIdx = Convert.ToInt32(compInfo_node.Element("pedXml_compIdx").FirstAttribute.Value); //component id (jbib = 11, feet = 6, etc)
+                int comppedXml_drawblIdx = Convert.ToInt32(compInfo_node.Element("pedXml_drawblIdx").FirstAttribute.Value); //drawable index (000, 001, 002, etc)
 
-                string _name = Enum.GetName(typeof(YMTTypes.ComponentNumbers), comphash_D12F579D);
-                int curCompIndex = ComponentData.GetComponentIndexByID(comphash_D12F579D);
+                string _name = Enum.GetName(typeof(YMTTypes.ComponentNumbers), comppedXml_compIdx);
+                int curCompIndex = ComponentData.GetComponentIndexByID(comppedXml_compIdx);
                 if (curCompIndex != -1)
                 {
                     // FA1F28BF can have bigger value (in compInfo section) than there is defined drawables in component, so don't add more than exists
-                    if (MainWindow.Components.ElementAt(curCompIndex).compList.Count() > comphash_FA1F27BF)
+                    if (MainWindow.Components.ElementAt(curCompIndex).compList.Count() > comppedXml_drawblIdx)
                     {
                         //some weird ymt's can have multiple compInfo properties for one drawable, so let's add only first one
-                        if(MainWindow.Components.ElementAt(curCompIndex).compList.ElementAt(comphash_FA1F27BF).drawableInfo.Count() == 0)
+                        if(MainWindow.Components.ElementAt(curCompIndex).compList.ElementAt(comppedXml_drawblIdx).drawableInfo.Count() == 0)
                         {
-                            MainWindow.Components.ElementAt(curCompIndex).compList.ElementAt(comphash_FA1F27BF).drawableInfo.Add(new ComponentInfo(comphash_2FD08CEF, comphash_FC507D28,
-                                comphash_07AE529D, compflags, compinclusions, compexclusions, comphash_6032815C, comphash_7E103C8B, comphash_D12F579D, comphash_FA1F27BF));
+                            MainWindow.Components.ElementAt(curCompIndex).compList.ElementAt(comppedXml_drawblIdx).drawableInfo.Add(new ComponentInfo(comppedXml_audioID, comppedXml_audioID2,
+                                comppedXml_expressionMods, compflags, compinclusions, compexclusions, comppedXml_vfxComps, comppedXml_flags, comppedXml_compIdx, comppedXml_drawblIdx));
                         }
                         
                     }
@@ -238,7 +238,7 @@ namespace YMTEditor
                     int p_flag = Convert.ToInt32(propMetaData.Element("flags").FirstAttribute.Value);
                     int p_anchorId = Convert.ToInt32(propMetaData.Element("anchorId").FirstAttribute.Value);
                     int p_propId = Convert.ToInt32(propMetaData.Element("propId").FirstAttribute.Value);
-                    int p_hash = Convert.ToInt32(propMetaData.Element("hash_AC887A91").FirstAttribute.Value);
+                    int p_sticky = Convert.ToInt32(propMetaData.Element("stickyness").FirstAttribute.Value);
 
                     if (oldAnchorId != p_anchorId)//reset index on new anchorid
                     {
@@ -247,7 +247,7 @@ namespace YMTEditor
 
                     PropData _curPropData = MainWindow.Props.Where(p => p.propAnchorId == p_anchorId).First();
                     int textureCount = propMetaData.Descendants("texData").Elements("Item").Count();
-                    PropDrawable _curPropDrawable = new PropDrawable(_curPropDrawableIndex, textureCount, p_audioId, p_expressionMods, new ObservableCollection<PropTexture>(), p_renderFlag, p_propFlag, p_flag, p_anchorId, p_propId, p_hash);
+                    PropDrawable _curPropDrawable = new PropDrawable(_curPropDrawableIndex, textureCount, p_audioId, p_expressionMods, new ObservableCollection<PropTexture>(), p_renderFlag, p_propFlag, p_flag, p_anchorId, p_propId, p_sticky);
 
                     int texturePropIndex = 0;
                     foreach (var texData in propMetaData.Descendants("texData").Elements("Item"))
@@ -346,29 +346,29 @@ namespace YMTEditor
                     XElement compInfoItem = new XElement("Item");
                     if(comp.drawableInfo.FirstOrDefault() == null) //check if there is compInfo entry when we are saving, if not, create new one default
                     {
-                        compInfoItem.Add(new XElement("hash_2FD08CEF", "none")); //not sure what it does
-                        compInfoItem.Add(new XElement("hash_FC507D28", "none")); //not sure what it does
-                        compInfoItem.Add(new XElement("hash_07AE529D", String.Join(" ", new string[] { "0", "0", "0", "0", "0" })));  //component expressionMods (?) - gives ability to do heels
+                        compInfoItem.Add(new XElement("pedXml_audioID", "none")); //not sure what it does
+                        compInfoItem.Add(new XElement("pedXml_audioID2", "none")); //not sure what it does
+                        compInfoItem.Add(new XElement("pedXml_expressionMods", String.Join(" ", new string[] { "0", "0", "0", "0", "0" })));  //component expressionMods (?) - gives ability to do heels
                         compInfoItem.Add(new XElement("flags", new XAttribute("value", 0))); //not sure what it does
                         compInfoItem.Add(new XElement("inclusions", "0")); //not sure what it does
                         compInfoItem.Add(new XElement("exclusions", "0")); //not sure what it does
-                        compInfoItem.Add(new XElement("hash_6032815C", "PV_COMP_HEAD")); //probably everything has PV_COMP_HEAD (?)
-                        compInfoItem.Add(new XElement("hash_7E103C8B", new XAttribute("value", 0))); //not sure what it does
-                        compInfoItem.Add(new XElement("hash_D12F579D", new XAttribute("value", c.compId))); //component id (jbib = 11, lowr = 4, etc)
-                        compInfoItem.Add(new XElement("hash_FA1F27BF", new XAttribute("value", comp.drawableIndex))); // drawable index (000, 001, 002 etc)
+                        compInfoItem.Add(new XElement("pedXml_vfxComps", "PV_COMP_HEAD")); //probably everything has PV_COMP_HEAD (?)
+                        compInfoItem.Add(new XElement("pedXml_flags", new XAttribute("value", 0))); //not sure what it does
+                        compInfoItem.Add(new XElement("pedXml_compIdx", new XAttribute("value", c.compId))); //component id (jbib = 11, lowr = 4, etc)
+                        compInfoItem.Add(new XElement("pedXml_drawblIdx", new XAttribute("value", comp.drawableIndex))); // drawable index (000, 001, 002 etc)
                     }
                     else
                     {
-                        compInfoItem.Add(new XElement("hash_2FD08CEF", comp.drawableInfo.First().infoHash_2FD08CEF)); //not sure what it does
-                        compInfoItem.Add(new XElement("hash_FC507D28", comp.drawableInfo.First().infoHash_FC507D28)); //not sure what it does
-                        compInfoItem.Add(new XElement("hash_07AE529D", String.Join(" ", comp.drawableInfo.First().infoHash_07AE529D)));  //component expressionMods (?) - gives ability to do heels
+                        compInfoItem.Add(new XElement("pedXml_audioID", comp.drawableInfo.First().infopedXml_audioID)); //not sure what it does
+                        compInfoItem.Add(new XElement("pedXml_audioID2", comp.drawableInfo.First().infopedXml_audioID2)); //not sure what it does
+                        compInfoItem.Add(new XElement("pedXml_expressionMods", String.Join(" ", comp.drawableInfo.First().infopedXml_expressionMods)));  //component expressionMods (?) - gives ability to do heels
                         compInfoItem.Add(new XElement("flags", new XAttribute("value", comp.drawableInfo.First().infoFlags))); //not sure what it does
                         compInfoItem.Add(new XElement("inclusions", comp.drawableInfo.First().infoInclusions)); //not sure what it does
                         compInfoItem.Add(new XElement("exclusions", comp.drawableInfo.First().infoExclusions)); //not sure what it does
-                        compInfoItem.Add(new XElement("hash_6032815C", comp.drawableInfo.First().infoHash_6032815C)); //probably everything has PV_COMP_HEAD (?)
-                        compInfoItem.Add(new XElement("hash_7E103C8B", new XAttribute("value", comp.drawableInfo.First().infoHash_7E103C8B))); //not sure what it does
-                        compInfoItem.Add(new XElement("hash_D12F579D", new XAttribute("value", c.compId))); //component id (jbib = 11, lowr = 4, etc)
-                        compInfoItem.Add(new XElement("hash_FA1F27BF", new XAttribute("value", comp.drawableIndex))); // drawable index (000, 001, 002 etc)
+                        compInfoItem.Add(new XElement("pedXml_vfxComps", comp.drawableInfo.First().infopedXml_vfxComps)); //probably everything has PV_COMP_HEAD (?)
+                        compInfoItem.Add(new XElement("pedXml_flags", new XAttribute("value", comp.drawableInfo.First().infopedXml_flags))); //not sure what it does
+                        compInfoItem.Add(new XElement("pedXml_compIdx", new XAttribute("value", c.compId))); //component id (jbib = 11, lowr = 4, etc)
+                        compInfoItem.Add(new XElement("pedXml_drawblIdx", new XAttribute("value", comp.drawableIndex))); // drawable index (000, 001, 002 etc)
                     }
                     
                     
@@ -424,7 +424,7 @@ namespace YMTEditor
                     aPropMetaDataItem.Add(new XElement("flags", new XAttribute("value", prop.propFlags)));
                     aPropMetaDataItem.Add(new XElement("anchorId", new XAttribute("value", prop.propAnchorId)));
                     aPropMetaDataItem.Add(new XElement("propId", new XAttribute("value", prop.propIndex))); //propId is index of a prop in the same anchorid, so we can use index instead
-                    aPropMetaDataItem.Add(new XElement("hash_AC887A91", new XAttribute("value", prop.propHash_AC887A91)));
+                    aPropMetaDataItem.Add(new XElement("stickyness", new XAttribute("value", prop.propStickyness)));
                     aPropMetaData.Add(aPropMetaDataItem);
                 }
             }

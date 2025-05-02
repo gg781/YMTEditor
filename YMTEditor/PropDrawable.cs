@@ -37,8 +37,8 @@ namespace YMTEditor
         public int propFlags { get; set; }
         public int propAnchorId { get; set; }
         public int propPropId { get; set; }
-        public int propHash_AC887A91 { get; set; }
-        public PropDrawable(int index, int txtCount, string audioId, string[] expressionMods, ObservableCollection<PropTexture> textureList, string renderFlag, int propFlag, int flag, int anchorId, int propId, int hash)
+        public int propStickyness { get; set; }
+        public PropDrawable(int index, int txtCount, string audioId, string[] expressionMods, ObservableCollection<PropTexture> textureList, string renderFlag, int propFlag, int flag, int anchorId, int propId, int sticky)
         {
             propIndex = index;
             propTextureCount = txtCount;
@@ -50,7 +50,7 @@ namespace YMTEditor
             propFlags = flag;
             propAnchorId = anchorId;
             propPropId = propId;
-            propHash_AC887A91 = hash;
+            propStickyness = sticky;
         }
 
         public PropDrawable(int anchorId, int index, int textureCount = 1)
@@ -69,7 +69,7 @@ namespace YMTEditor
             propFlags = 0;
             propAnchorId = anchorId;
             propPropId = index;
-            propHash_AC887A91 = 0;
+            propStickyness = 0;
             propTextureCount = textureCount;
         }
         public override string ToString() //used to determine if clicked texture or prop button (return is displayed as DataContext of button) (MainWindow.xaml.cs -> Button_Click_AddProp)

@@ -256,16 +256,16 @@
                                                                                                                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                                                                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                                                                                                         </Grid.ColumnDefinitions>
-                                                                                                                        <Label Margin="5">hash__2FD08CEF:</Label>
-                                                                                                                        <TextBox Grid.Column="1" Margin="6" Text="{Binding infoHash_2FD08CEF}"></TextBox>
+                                                                                                                        <Label Margin="5">Audio ID:</Label>
+                                                                                                                        <TextBox Grid.Column="1" Margin="6" Text="{Binding infopedXml_audioID}"></TextBox>
                                                                                                                     </Grid>
                                                                                                                     <Grid>
                                                                                                                         <Grid.ColumnDefinitions>
                                                                                                                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                                                                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                                                                                                         </Grid.ColumnDefinitions>
-                                                                                                                        <Label Margin="5">hash__FC507D28:</Label>
-                                                                                                                        <TextBox Grid.Column="1" Margin="6" Text="{Binding infoHash_FC507D28}"></TextBox>
+                                                                                                                        <Label Margin="5">Audio ID 2:</Label>
+                                                                                                                        <TextBox Grid.Column="1" Margin="6" Text="{Binding infopedXml_audioID2}"></TextBox>
                                                                                                                     </Grid>
                                                                                                                     <Grid>
                                                                                                                         <Grid.ColumnDefinitions>
@@ -276,12 +276,12 @@
                                                                                                                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                                                                                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                                                                                         </Grid.ColumnDefinitions>
-                                                                                                                        <Label Margin="5">hash__07AE529D:</Label>
-                                                                                                                        <xctk:DoubleUpDown Margin="5" FormatString="N1" Grid.Column="1" Minimum="-8" Maximum="8" MaxHeight="25" Width="50" Increment=".1" Value="{Binding infoHash_07AE529D[0]}" />
-                                                                                                                        <xctk:DoubleUpDown Margin="5" FormatString="N1" Grid.Column="2" Minimum="-8" Maximum="8" MaxHeight="25" Width="50" Increment=".1" Value="{Binding infoHash_07AE529D[1]}" />
-                                                                                                                        <xctk:DoubleUpDown Margin="5" FormatString="N1" Grid.Column="3" Minimum="-8" Maximum="8" MaxHeight="25" Width="50" Increment=".1" Value="{Binding infoHash_07AE529D[2]}" />
-                                                                                                                        <xctk:DoubleUpDown Margin="5" FormatString="N1" Grid.Column="4" Minimum="-8" Maximum="8" MaxHeight="25" Width="50" Increment=".1" Value="{Binding infoHash_07AE529D[3]}" />
-                                                                                                                        <xctk:DoubleUpDown Margin="5" FormatString="N1" Grid.Column="5" Minimum="-8" Maximum="8" MaxHeight="25" Width="50" Increment=".1" Value="{Binding infoHash_07AE529D[4]}" />
+                                                                                                                        <Label Margin="5">Expression Modifiers:</Label>
+                                                                                                                        <xctk:DoubleUpDown Margin="5" FormatString="N1" Grid.Column="1" Minimum="-8" Maximum="8" MaxHeight="25" Width="50" Increment=".1" Value="{Binding infopedXml_expressionMods[0]}" />
+                                                                                                                        <xctk:DoubleUpDown Margin="5" FormatString="N1" Grid.Column="2" Minimum="-8" Maximum="8" MaxHeight="25" Width="50" Increment=".1" Value="{Binding infopedXml_expressionMods[1]}" />
+                                                                                                                        <xctk:DoubleUpDown Margin="5" FormatString="N1" Grid.Column="3" Minimum="-8" Maximum="8" MaxHeight="25" Width="50" Increment=".1" Value="{Binding infopedXml_expressionMods[2]}" />
+                                                                                                                        <xctk:DoubleUpDown Margin="5" FormatString="N1" Grid.Column="4" Minimum="-8" Maximum="8" MaxHeight="25" Width="50" Increment=".1" Value="{Binding infopedXml_expressionMods[3]}" />
+                                                                                                                        <xctk:DoubleUpDown Margin="5" FormatString="N1" Grid.Column="5" Minimum="-8" Maximum="8" MaxHeight="25" Width="50" Increment=".1" Value="{Binding infopedXml_expressionMods[4]}" />
                                                                                                                     </Grid>
                                                                                                                     <Grid>
                                                                                                                         <Grid.ColumnDefinitions>
@@ -312,16 +312,16 @@
                                                                                                                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                                                                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                                                                                                         </Grid.ColumnDefinitions>
-                                                                                                                        <Label Margin="5">hash__6032815C:</Label>
-                                                                                                                        <TextBox IsEnabled="False" Grid.Column="1" Margin="6" Text="{Binding infoHash_6032815C}"></TextBox>
+                                                                                                                        <Label Margin="5">Component VFX:</Label>
+                                                                                                                        <TextBox IsEnabled="False" Grid.Column="1" Margin="6" Text="{Binding infopedXml_vfxComps}"></TextBox>
                                                                                                                     </Grid>
                                                                                                                     <Grid>
                                                                                                                         <Grid.ColumnDefinitions>
                                                                                                                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                                                                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                                                                                                         </Grid.ColumnDefinitions>
-                                                                                                                        <Label Margin="5">hash__7E103C8B:</Label>
-                                                                                                                        <TextBox Grid.Column="1" Margin="6" Text="{Binding infoHash_7E103C8B}"></TextBox>
+                                                                                                                        <Label Margin="5">Flags2:</Label>
+                                                                                                                        <TextBox Grid.Column="1" Margin="6" Text="{Binding infopedXml_flags}"></TextBox>
                                                                                                                     </Grid>
                                                                                                                 </StackPanel>
                                                                                                             </DataTemplate>
@@ -529,8 +529,8 @@
                                                                                                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                                                                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                                                                                                 </Grid.ColumnDefinitions>
-                                                                                                                <Label Margin="5">hash__AC887A91:</Label>
-                                                                                                                <TextBox Grid.Column="1" Margin="6" Text="{Binding propHash_AC887A91}"></TextBox>
+                                                                                                                <Label Margin="5">Stickyness:</Label>
+                                                                                                                <TextBox Grid.Column="1" Margin="6" Text="{Binding propStickyness}"></TextBox>
                                                                                                             </Grid>
                                                                                                         </StackPanel>
                                                                                                     </GroupBox.Content>
