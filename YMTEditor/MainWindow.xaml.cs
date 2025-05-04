@@ -1018,24 +1018,29 @@ namespace YMTEditor
             string version = fvi.FileVersion.ToString();
             _version.Header = "Version: " + version;
 
-            if (CheckInternetConnection())
-            {
-                WebClient webclient = new WebClient();
-                Stream stream = webclient.OpenRead("https://raw.githubusercontent.com/grzybeek/YMTEditor/master/YMTEditor/version.txt");
-                StreamReader reader = new StreamReader(stream);
-
-                string githubVersion = reader.ReadToEnd().ToString();
-
-                if (version != githubVersion)
+            try {
+                if (CheckInternetConnection())
                 {
-                    _version.Header += " (Update available)";
-                    _version.IsEnabled = true;
-                    _version.Click += NewVersion_Click;
+                    WebClient webclient = new WebClient();
+                    Stream stream = webclient.OpenRead("https://raw.githubusercontent.com/grzybeek/YMTEditor/master/YMTEditor/version.txt");
+                    StreamReader reader = new StreamReader(stream);
+			    
+                    string githubVersion = reader.ReadToEnd().ToString();
+			    
+                    if (version != githubVersion)
+                    {
+                        _version.Header += " (Update available)";
+                        _version.IsEnabled = true;
+                        _version.Click += NewVersion_Click;
+                    }
                 }
+				else
+				{
+					SetLogMessage("Unable to connect to the internet, skip update check.");
+				}
             }
-            else
-            {
-                //no internet, open editor
+            catch (Expection ex) {
+                SetLogMessage("Check for updates failed: " + ex.Message);
             }
         }
 
